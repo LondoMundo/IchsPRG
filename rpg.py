@@ -5,10 +5,10 @@ global strength
 def checkMoves(moveOption):
     n=0
     while n<3:
-        if moves[n] == moveOption:
+        if heldmoves[n] == moveOption:
             return True
             pass
-        elif moves[n]!=moveOption:
+        elif heldmoves[n]!=moveOption:
             return False
         n+=1
 
@@ -19,7 +19,8 @@ def whatMove():
     return moveOption
 pHealth=200
 health={'Alex':100, 'Nathan':100}
-moves = ["punch", "do nothing", "do nothing", "do nothing"]
+allMoves = {'punch':50, 'kick':60, 'karate':60}
+heldmoves = ["punch", "do nothing", "do nothing", "do nothing"]
 wades=["Alex", "Nathan"]
 v1Teach=["Demas", "Pries", "Bosma", "Laurie", "Jacobsen", "Dipzinski"]
 print "You arrive at ICHS, a mystical land filled with mosterous Wades, and"
@@ -41,7 +42,7 @@ FightOrRun=FightOrRun.lower()
 if FightOrRun=="f":
     
     oppHealth=health[wade]
-    while oppHealth >=0 and pHealth >=0:
+    while oppHealth >0 and pHealth >0:
         
         print "he has "+`oppHealth`+" health"
         print "you have "+`pHealth` + "health"
@@ -57,8 +58,31 @@ if FightOrRun=="f":
         else:
             print "you dont have that move"
             
-if oppHealth <= 0:
+if oppHealth < 1:
     print "you won"
-elif pHealth<=0:
+elif pHealth<0:
     print "you lost"
+    raise SystemExit
+
+print "Which new move do you want to learn? [Kick], or [Karate] Chop?"
+newMove = raw_input("")
+newMove=newMove.lower()
+if newMove == "kick":
+    heldmoves[1]="kick"
+    print moves
+elif newMove == "karate":
+    heldmoves[1]="karate"
+    print moves
+
+
+
+
+
+
+
+
+
+
+
+
 
