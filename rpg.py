@@ -1,28 +1,38 @@
 import os
 from random import randint
 global strength
-
+def changeArea():
+    print "What area do you want to change into? 2 or 3?"
+    areaChoice = raw_input()
+    return areaChoice
 def checkMoves(moveOption):
-    n=0
-    while n<3:
-        if heldmoves[n] == moveOption:
-            return True
-            pass
-        elif heldmoves[n]!=moveOption:
-            return False
-        n+=1
+    if moveOption == heldmoves[0]:
+        return True
+    elif moveOption == heldmoves[1]:
+        return True
+    elif moveOption == heldmoves[2]:
+        return True
+    elif moveOption == heldmoves[3]:
+        return True
+    else:
+        return False
+
+def moveDamage(move):
+    return allMoves[move]
+    
 
 def whatMove():
-    print "Do you want to " + moves[0] + " , " + moves[1] + " , " + moves[2] + " , " + moves[3]
+    print "Do you want to " + heldmoves[0] + " , " + heldmoves[1] + " , " + heldmoves[2] + " , " + heldmoves[3]
     moveOption=raw_input("")
     moveOption=moveOption.lower()
     return moveOption
 pHealth=200
-health={'Alex':100, 'Nathan':100}
+health={'Alex':100, 'Nathan':100, 'Demas':200, 'Pries':225, 'Bosma': 175, 'Laurie':200, 'Jacobsen':150, 'Dipzinski':225}
 allMoves = {'punch':50, 'kick':60, 'karate':60}
-heldmoves = ["punch", "do nothing", "do nothing", "do nothing"]
+heldmoves = ["punch", "kick", "do nothing", "do nothing"]
 wades=["Alex", "Nathan"]
-v1Teach=["Demas", "Pries", "Bosma", "Laurie", "Jacobsen", "Dipzinski"]
+v2Teach=["Demas", "Pries", "Bosma", "Laurie", "Jacobsen", "Dipzinski"]
+v3Teach=["Bebee", "Gymory", "Lestage", "Koss", "Gartrell", "Halstead"]
 print "You arrive at ICHS, a mystical land filled with mosterous Wades, and"
 print "friendly fairys."
 print "you arrive at the front doors of the high school. What do you want to do?"
@@ -69,10 +79,45 @@ newMove = raw_input("")
 newMove=newMove.lower()
 if newMove == "kick":
     heldmoves[1]="kick"
-    print moves
+    print heldmoves
 elif newMove == "karate":
     heldmoves[1]="karate"
-    print moves
+    print heldmoves
+print "You have passed the first area. You gained 10 exp. You have now moved onto area two of ICHS."
+currentArea=2
+while 1==1:
+    print "you are in area "+`currentArea`
+    print "What do you want to do? [F]ight, [C]hange area?"
+    whatToDo=raw_input("")
+    whatToDo=whatToDo.lower()
+    if whatToDo == "c":
+        currentArea=changeArea()
+        currentArea=int(currentArea)
+        print currentArea
+    elif whatToDo == "f":
+        if currentArea==2:
+            opponent = v2Teach[randint(0,5)]
+            print "A wild " + opponent + " appeared"
+            oppHealth = health[opponent]
+            while pHealth>0 and oppHealth>0:
+                print "the opponent has " + `oppHealth` + " health"
+                print "Do you want to " + heldmoves[0] + " , "+ heldmoves[1]+ " , " +heldmoves[2]+ " , " +heldmoves[3] + "?"
+                moveOption=raw_input("")
+                moveOption = moveOption.lower()
+                if checkMoves(moveOption) == True:
+                    damage = moveDamage(moveOption)
+                    oppHealth = oppHealth-damage
+                else:
+                    print "That isn't a move"
+                
+                
+
+        elif currentArea==3:
+            opponent = v3Teach[randint(0,5)]
+            print "A wild " + opponent + " appeared"
+        else:
+            print "I dont know which area you're in"
+    
 
 
 
