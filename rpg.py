@@ -27,7 +27,7 @@ def whatMove():
     moveOption=moveOption.lower()
     return moveOption
 pHealth=200
-health={'Alex':100, 'Nathan':100, 'Demas':200, 'Pries':225, 'Bosma': 175, 'Laurie':200, 'Jacobsen':150, 'Dipzinski':225}
+health={'Alex':100, 'Nathan':100, 'Demas':200, 'Pries':225, 'Bosma': 175, 'Laurie':200, 'Jacobsen':150, 'Dipzinski':225, 'Bebee':300, 'Gymory':350, 'Lestage':325, 'Koss':250, 'Gartrell':400, 'Halstead':350}
 allMoves = {'punch':50, 'kick':60, 'karate':60}
 heldmoves = ["punch", "kick", "do nothing", "do nothing"]
 wades=["Alex", "Nathan"]
@@ -110,11 +110,29 @@ while 1==1:
                 else:
                     print "That isn't a move"
                 
-                
+            if pHealth <=0:
+                print "you lost"
+            elif oppHealth<=0:
+                print "you won"
 
         elif currentArea==3:
             opponent = v3Teach[randint(0,5)]
             print "A wild " + opponent + " appeared"
+            oppHealth=health[opponent]
+            while pHealth>0 and oppHealth>0:
+                print "The opponent has "+`oppHealth` + " health"
+                print "Do you want to " + heldmoves[0] + " , "+ heldmoves[1]+ " , " +heldmoves[2]+ " , " +heldmoves[3] + "?"
+                moveOption=raw_input("")
+                moveOption=moveOption.lower()
+                if checkMoves(moveOption)==True:
+                    damage=moveDamage(moveOption)
+                    oppHealth=oppHealth-damage
+                else:
+                    print "That isn't a move"
+            if pHealth <=0:
+                print "you lost"
+            elif oppHealth<=0:
+                print "you won"
         else:
             print "I dont know which area you're in"
     
