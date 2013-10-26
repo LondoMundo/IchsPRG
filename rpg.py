@@ -9,7 +9,8 @@ except:
 from random import randint
 
 #global strength  implement this as a modifyer to the damage the player deals
-
+global pHealth
+pHealth=3000
 def changeArea():
     """This function is called when a player wants to change areas"""
 
@@ -31,13 +32,34 @@ def expStuff(exp):
             print "3: " + heldmoves[3]
             getRidOf = int(raw_input(""))
             heldmoves[getRidOf] = "roundhouse"
-        else:
+        elif moveYorN == "N" or "n":
             pass
-
-
-
-
-
+    elif exp >=200 and exp < 300:
+        print "do you want to learn heal?"
+        moveYorN = raw_input("")
+        if moveYorN == "Y" or "y":
+            print "which move do you want to replace? (type the number)"
+            print "0: " + heldmoves[0]
+            print "1: " + heldmoves[1]
+            print "2: " + heldmoves[2]
+            print "3: " + heldmoves[3]
+            getRidOf = int(raw_input(""))
+            heldmoves[getRidOf] = "heal"
+        elif moveYorN == "N" or "n":
+            pass
+    elif exp >=300 and exp < 400:
+        print "do you want to learn smack?"
+        moveYorN = raw_input("")
+        if moveYorN == "Y" or "y":
+            print "which move do you want to replace? (type the number)"
+            print "0: " + heldmoves[0]
+            print "1: " + heldmoves[1]
+            print "2: " + heldmoves[2]
+            print "3: " + heldmoves[3]
+            getRidOf = int(raw_input(""))
+            heldmoves[getRidOf] = "smack"
+        elif moveYorN == "N" or "n":
+            pass
 
 
 
@@ -55,7 +77,12 @@ def checkMoves(moveOption):
         return False
 
 def moveDamage(move):
-    return allMoves[move]
+    global pHealth
+    if move == "heal":
+        pHealth+=100
+        return 0
+    else:
+        return allMoves[move]
 
 def moveUsed(currentArea):
     """Calculates which move the opponent is to use. It is different if they are in different areas, hence the if
@@ -80,11 +107,11 @@ def whatMove():
     return moveOption
 
 #initializes the players health
-pHealth=300
+
 #list the starting health of opponents
 health={'Alex': 100, 'Nathan': 100, 'Demas':200, 'Pries': 225, 'Bosma': 175, 'Laurie': 200, 'Jacobsen': 150, 'Dipzinski'
 : 225, 'Bebee': 300, 'Gymory': 350, 'Lestage': 325, 'Koss': 250, 'Gartrell': 400, 'Halstead':350}
-allMoves = {'punch':50, 'kick':60, 'karate':60, 'roundhouse':80}
+allMoves = {'punch':50, 'kick':60, 'karate':60, 'roundhouse':80, 'smack':90}
 oppMoves2=['hit', 'yell']
 oppDamage2={'hit':50, 'yell':60}
 oppMoves3=['hard hit', 'screech']
@@ -145,6 +172,7 @@ if newMove == "kick":
 elif newMove == "karate":
     heldmoves[1]="karate"
     print heldmoves
+exp+=10
 print "You have passed the first area. You gained 10 exp. You have now moved onto area two of ICHS."
 
 currentArea=2
