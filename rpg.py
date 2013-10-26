@@ -19,22 +19,27 @@ def changeArea():
     return areaChoice
 #Make moves based on expereience, not level. Make exp a running total
 
-
+first = 0
+second = 0
+third = 0
 def expStuff(exp):
-    if exp >= 100 and exp < 200:
+    if exp >= 100 and exp < 200 and first == 0:
         print "do you want to learn roundhouse kick? Y or N"
         moveYorN = raw_input("")
-        if moveYorN == "Y" or "y":
+        if moveYorN == "Y" or "y" :
             print "which move do you want to replace? (type the number)"
             print "0: " + heldmoves[0]
             print "1: " + heldmoves[1]
             print "2: " + heldmoves[2]
             print "3: " + heldmoves[3]
             getRidOf = int(raw_input(""))
-            heldmoves[getRidOf] = "roundhouse"
+            heldmoves[getRidOf] ="roundhouse"
+
         elif moveYorN == "N" or "n":
             pass
-    elif exp >=200 and exp < 300:
+        global first
+        first = 1
+    elif exp >=200 and exp < 300 and second == 0:
         print "do you want to learn heal?"
         moveYorN = raw_input("")
         if moveYorN == "Y" or "y":
@@ -47,7 +52,9 @@ def expStuff(exp):
             heldmoves[getRidOf] = "heal"
         elif moveYorN == "N" or "n":
             pass
-    elif exp >=300 and exp < 400:
+        global second
+        second =1
+    elif exp >=300 and exp < 400 and third == 0:
         print "do you want to learn smack?"
         moveYorN = raw_input("")
         if moveYorN == "Y" or "y":
@@ -58,8 +65,12 @@ def expStuff(exp):
             print "3: " + heldmoves[3]
             getRidOf = int(raw_input(""))
             heldmoves[getRidOf] = "smack"
+
         elif moveYorN == "N" or "n":
             pass
+        global third
+        third =1
+
 
 
 
@@ -227,6 +238,7 @@ while 1==1:
                 print "you won"
                 exp+=100
                 expStuff(exp)
+                print "you have " + `exp` + " exp"
 
 
 
@@ -266,7 +278,9 @@ while 1==1:
                     raise SystemExit
 
             elif oppHealth<=0:
-                print "you won"
+                print
+                exp+=150
+                expStuff(exp)
         else:
             print "I dont know which area you're in"
     
