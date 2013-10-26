@@ -20,7 +20,22 @@ def changeArea():
 
 
 def expStuff(exp):
-    pass
+    if exp >= 100 and exp < 200:
+        print "do you want to learn roundhouse kick? Y or N"
+        moveYorN = raw_input("")
+        if moveYorN == "Y" or "y":
+            print "which move do you want to replace? (type the number)"
+            print "0: " + heldmoves[0]
+            print "1: " + heldmoves[1]
+            print "2: " + heldmoves[2]
+            print "3: " + heldmoves[3]
+            getRidOf = int(raw_input(""))
+            heldmoves[getRidOf] = "roundhouse"
+        else:
+            pass
+
+
+
 
 
 
@@ -65,11 +80,11 @@ def whatMove():
     return moveOption
 
 #initializes the players health
-pHealth=200checkLevel(exp)
+pHealth=300
 #list the starting health of opponents
 health={'Alex': 100, 'Nathan': 100, 'Demas':200, 'Pries': 225, 'Bosma': 175, 'Laurie': 200, 'Jacobsen': 150, 'Dipzinski'
 : 225, 'Bebee': 300, 'Gymory': 350, 'Lestage': 325, 'Koss': 250, 'Gartrell': 400, 'Halstead':350}
-allMoves = {'punch':50, 'kick':60, 'karate':60}
+allMoves = {'punch':50, 'kick':60, 'karate':60, 'roundhouse':80}
 oppMoves2=['hit', 'yell']
 oppDamage2={'hit':50, 'yell':60}
 oppMoves3=['hard hit', 'screech']
@@ -183,6 +198,7 @@ while 1==1:
             elif oppHealth<=0:
                 print "you won"
                 exp+=100
+                expStuff(exp)
 
 
 
