@@ -33,43 +33,52 @@ def expStuff(exp):
             print "2: " + heldmoves[2]
             print "3: " + heldmoves[3]
             getRidOf = int(raw_input(""))
-            heldmoves[getRidOf] ="roundhouse"
+
+            try:
+                heldmoves[getRidOf] ="roundhouse"
+            except:
+                print "That isn't a valid value"
 
         elif moveYorN == "N" or "n":
             pass
-        global first
-        first = 1
+
     elif exp >=200 and exp < 300 and second == 0:
-        print "do you want to learn heal?"
+        print "do you want to learn heal Y or N?"
         moveYorN = raw_input("")
-        if moveYorN == "Y" or "y":
+        if moveYorN == "Y" or "y" or "yes":
             print "which move do you want to replace? (type the number)"
             print "0: " + heldmoves[0]
             print "1: " + heldmoves[1]
             print "2: " + heldmoves[2]
             print "3: " + heldmoves[3]
+
             getRidOf = int(raw_input(""))
-            heldmoves[getRidOf] = "heal"
-        elif moveYorN == "N" or "n":
-            pass
-        global second
-        second =1
-    elif exp >=300 and exp < 400 and third == 0:
-        print "do you want to learn smack?"
-        moveYorN = raw_input("")
-        if moveYorN == "Y" or "y":
-            print "which move do you want to replace? (type the number)"
-            print "0: " + heldmoves[0]
-            print "1: " + heldmoves[1]
-            print "2: " + heldmoves[2]
-            print "3: " + heldmoves[3]
-            getRidOf = int(raw_input(""))
-            heldmoves[getRidOf] = "smack"
+            try:
+                heldmoves[getRidOf] = "heal"
+            except:
+                print "That isn't a valid value"
 
         elif moveYorN == "N" or "n":
             pass
-        global third
-        third =1
+
+    elif exp >=300 and exp < 400 and third == 0:
+        print "do you want to learn smack? Y or N"
+        moveYorN = raw_input("")
+        if moveYorN == "Y" or "y":
+            print "which move do you want to replace? (type the number)"
+            print "0: " + heldmoves[0]
+            print "1: " + heldmoves[1]
+            print "2: " + heldmoves[2]
+            print "3: " + heldmoves[3]
+            getRidOf = int(raw_input(""))
+            try:
+                heldmoves[getRidOf] = "smack"
+            except:
+                print "That isn't a valid value"
+
+        elif moveYorN == "N" or "n":
+            pass
+
 
 
 
@@ -127,8 +136,8 @@ oppMoves2=['hit', 'yell']
 oppDamage2={'hit':50, 'yell':60}
 oppMoves3=['hard hit', 'screech']
 oppDamage3={'hard hit':75, 'screech':100}
-heldmoves = ["punch", "kick", "do nothing", "do nothing"]
-wades=["Alex", "Nathan"]
+heldmoves = ["punch", 'do nothing', "do nothing", "do nothing"]
+wades=['Alex', "Nathan"]
 v2Teach=["Demas", "Pries", "Bosma", "Laurie", "Jacobsen", "Dipzinski"]
 v3Teach=["Bebee", "Gymory", "Lestage", "Koss", "Gartrell", "Halstead"]
 exp=0
@@ -283,17 +292,3 @@ while 1==1:
                 expStuff(exp)
         else:
             print "I dont know which area you're in"
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
