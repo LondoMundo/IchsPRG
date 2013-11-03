@@ -18,12 +18,24 @@ def changeArea():
     areaChoice = raw_input()
     return areaChoice
 #Make moves based on expereience, not level. Make exp a running total
+level = 1
+#experimental DO NOT PUSH TO MASTER!!!!!!
+def LevelUp(exp):
+    global level
+    #this should be addressed later: If you gain more than one level at a time, it has no way of knowing. use while loop
+    if (level*5)**2 < exp:
+        level+=1
+        print "you leveled up."
+        print "you are now level " + `level`
+    else:
+        print "you didn't level up"
 
-first = 0
-second = 0
-third = 0
-def expStuff(exp):
-    if exp >= 100 and exp < 200 and first == 0:
+
+
+
+
+def gainMove(level):
+    if level == 2:
         print "do you want to learn roundhouse kick? Y or N"
         moveYorN = raw_input("")
         if moveYorN == "Y" or "y" :
@@ -35,14 +47,14 @@ def expStuff(exp):
             getRidOf = int(raw_input(""))
 
             try:
-                heldmoves[getRidOf] ="roundhouse"
+                heldmoves[getRidOf] = "roundhouse"
             except:
                 print "That isn't a valid value"
 
         elif moveYorN == "N" or "n":
             pass
 
-    elif exp >=200 and exp < 300 and second == 0:
+    elif level == 3:
         print "do you want to learn heal Y or N?"
         moveYorN = raw_input("")
         if moveYorN == "Y" or "y" or "yes":
@@ -61,7 +73,7 @@ def expStuff(exp):
         elif moveYorN == "N" or "n":
             pass
 
-    elif exp >=300 and exp < 400 and third == 0:
+    elif level == 4:
         print "do you want to learn smack? Y or N"
         moveYorN = raw_input("")
         if moveYorN == "Y" or "y":
@@ -144,18 +156,18 @@ exp=0
 
 print "You arrive at ICHS, a mystical land filled with mosterous Wades, and"
 print "friendly fairys."
-print "you arrive at the front doors of the high school. What do you want to do?"
+print "You arrive at the front doors of the high school. What do you want to do?"
 print "Go [in], or stay [out]"
 inOrOut=raw_input("")
 inOrOut=inOrOut.lower()
 if inOrOut == "in":
-    print "you go into the high school"
+    print "You go into the high school"
 elif inOrOut == "out":
     raise SystemExit
 print "As you enter the school, you see a menacing figure come out of the shadows"
 wade = wades[randint(0,1)]
 print "OH NO! It's a wild " + wade
-print "what do you want to do? [F]ight or [R]un?"
+print "What do you want to do? [F]ight or [R]un?"
 FightOrRun=raw_input("")
 FightOrRun=FightOrRun.lower()
 if FightOrRun=="f":
@@ -163,27 +175,27 @@ if FightOrRun=="f":
     oppHealth=health[wade]
     while oppHealth >0 and pHealth >0:
 
-        print "he has "+`oppHealth`+" health"
-        print "you have "+`pHealth` + "health"
+        print "He has "+`oppHealth`+" health"
+        print "You have "+`pHealth` + "health"
         moveOption = whatMove()
 
         if checkMoves(moveOption) == True:
-            print "you " + moveOption + " your oponent"
+            print "You " + moveOption + " your oponent"
             oppHealth = oppHealth - 50
-            print "wade used cry"
-            print "it did 10 damage"
+            print "Wade used cry"
+            print "It did 10 damage"
             pHealth=pHealth-10
 
         else:
-            print "you dont have that move"
+            print "You dont have that move"
 
 if oppHealth < 1:
-    print "you won"
+    print "You won"
 elif pHealth<0:
-    print "you lost"
+    print "You lost"
     raise SystemExit
 
-print "Which new move do you want to learn? [Kick], or [Karate] Chop?"
+print "Which new move do You want to learn? [Kick], or [Karate] Chop?"
 newMove = raw_input("")
 newMove=newMove.lower()
 if newMove == "kick":
@@ -199,7 +211,7 @@ currentArea=2
 
 while 1==1:
 
-    print "you are in area "+`currentArea`
+    print "You are in area "+`currentArea`
     print "What do you want to do? [F]ight, [C]hange area?"
     whatToDo=raw_input("")
     whatToDo=whatToDo.lower()
@@ -228,14 +240,14 @@ while 1==1:
                 usedMove=moveUsed(currentArea)
                 print opponent + " used " + usedMove
                 pHealth -= oppDamage2[usedMove]
-                print "you have "+`pHealth` + " health left"
+                print "You have "+`pHealth` + " health left"
 
             if pHealth <=0:
 
-                print "you lost"
+                print "You lost"
                 if x==1:
                     time.sleep(10)
-                    print "i'm sleeping"
+                    print "I'm sleeping"
                     raise SystemExit
 
                 elif x==0:
@@ -244,14 +256,11 @@ while 1==1:
                     raise SystemExit
 
             elif oppHealth<=0:
-                print "you won"
+                print "You won"
                 exp+=100
-                expStuff(exp)
-                print "you have " + `exp` + " exp"
-
-
-
-
+                LevelUp(exp)
+                gainMove(level)
+                print "You have " + `exp` + " exp"
 
         elif currentArea==3:
 
@@ -274,11 +283,11 @@ while 1==1:
                 usedMove=moveUsed(currentArea)
                 print opponent + " used " + usedMove
                 pHealth -= oppDamage3[usedMove]
-                print "you have "+`pHealth` + " health left"
+                print "You have "+`pHealth` + " health left"
 
             if pHealth <= 0:
 
-                print "you lost"
+                print "You lost"
                 if x == 1:
                     time.sleep(10)
                     raise SystemExit
@@ -289,6 +298,9 @@ while 1==1:
             elif oppHealth<=0:
                 print
                 exp+=150
-                expStuff(exp)
+                print "You have " + `exp` + " exp"
+                LevelUp(exp)
+                gainMove(level)
+
         else:
             print "I dont know which area you're in"
