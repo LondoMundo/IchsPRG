@@ -2,12 +2,14 @@
 TODO: add the ability to dodge moves, based on a skill that the player has. It is dependent on level, but at a certain
 point, it has to cap, so you don't dodge every move.
 
-Add weapons into the game.
+Integrate inventory option into the game. Its all set up, it just needs to be added as a prompt
+
+Add weapons into the game. Wepons reuqire a system where the player is wearing things.
 
 London Reed, Coral, and Plain Bagel Easter Eggs
 
-Vegetarian option. lol
-"""
+Vegetarian option. lol"""
+
 try:
     import time
     # we import time to use the sleep function. It lets the terminal stay open for a bit after we raise a sysExit
@@ -21,14 +23,38 @@ from random import randint
 #global strength  implement this as a modifyer to the damage the player deals
 global pHealth
 pHealth = 3000
+chestItem = "Nothing"
+
+
+def checkWornDefenseItems(chestItem):
+    """This function checks how much defense buff the player gains from chest armour"""
+    print "Your " + `chestItem` + " gives you a + " + `defenseItems[chestItem]` + " defense buff"
+    return defenseItems[chestItem]
+
+def equipThings():
+    global chestItem
+    #loops through inv,
+    for i in inv:
+        if classify[inv[i]]=="armour":
+            print `i` + " : " + `inv[i]`
+        else:
+            pass
+    print "What number do you want to equip?"
+    choice = int(raw_input(""))
+    chestItem = inv[choice]
 
 
 def useItem(itemToUse, itemNum):
+    #pHealth is the players health
     global pHealth
-    print invDesc[itemToUse]
-    print "That healed " + `invFunc[itemToUse]`
-    inv[itemNum] = "Nothing"
-    pHealth += invFunc[itemToUse]
+    #prints a description of the item
+    if classify[itemToUse] == "food":
+        print invDesc[itemToUse]
+        print "That healed " + `invFunc[itemToUse]`
+        inv[itemNum] = "Nothing"
+        pHealth += invFunc[itemToUse]
+    else:
+        print "You cant eat that"
 
 
 def selectItem():
@@ -44,18 +70,18 @@ def selectItem():
     try:
         itemNumToUse = int(raw_input(""))
     except:
-        "That is not a number"
+        print "That is not a number"
 
     try:
         itemToUse = inv[itemNumToUse]
         useItem(itemToUse, itemNumToUse)
     except:
-        print "You don't have that item"
+        print "You cant use that item"
 
 
 def getItem():
-    firstNum = randint(1,5)
-    secondNum = randint(1,2)
+    firstNum = randint(1, 5)
+    secondNum = randint(1, 2)
     if firstNum == 3:
         if secondNum == 1:
             print "You got a potion"
@@ -74,8 +100,6 @@ def getItem():
 
     else:
         pass
-
-
 
 
 def changeArea():
@@ -213,8 +237,10 @@ defense = 1
 #add more
 
 #inventory
-inv = {1: "mutton", 2: "potion", 3: "Nothing", 4: "Nothing", 5: "Nothing", 6: "Nothing", 7: "Nothing", 8: "Nothing",
+inv = {1: "mutton", 2: "potion", 3: "metal plate", 4: "Nothing", 5: "Nothing", 6: "Nothing", 7: "Nothing", 8: "Nothing",
        9: "Nothing", 10: "Nothing"}
+classify = {"mutton": "food", "potion": "food", "metal plate": "armour", "Nothing":"Nothing"}
+defenseItems = {"Nothing": 0, "leather plate": 3, "metal plate": 5}
 invDesc = {"mutton": "a meat that heals 100 health", "potion": "a weak health potion that heals 150 health"}
 invFunc = {'mutton': 100, 'potion': 150}
 #list the starting health of opponents
@@ -391,3 +417,11 @@ while 1 == 1:
     elif whatToDo == "inv":
         selectItem()
         #This was inventory stuff
+    elif whatToDo == "equip":
+        print "you are currently wearing a " + chestItem + " on your body"
+        checkWornDefenseItems(chestItem)
+        print "Do you want to equip new armour? Y or N"
+        equip = raw_input("")
+        equip = equip.lower()
+        if equip == "y":
+            equipThings()
