@@ -8,7 +8,17 @@ Add weapons into the game. Wepons reuqire a system where the player is wearing t
 
 London Reed, Coral, and Plain Bagel Easter Eggs
 
-Vegetarian option. lol"""
+do nothing crashes the program
+
+saying "no" to a move still acts as if you said yes
+
+Vegetarian option. lol
+
+implement all of the things added in "Area 2" Into area 3.
+
+implement the hidden functions into user accessable choices
+
+"""
 
 try:
     import time
@@ -26,16 +36,21 @@ pHealth = 3000
 chestItem = "Nothing"
 
 
-def checkWornDefenseItems(chestItem):
+def checkWornDefenseItemsVerbose(chestItem):
     """This function checks how much defense buff the player gains from chest armour"""
     print "Your " + `chestItem` + " gives you a + " + `defenseItems[chestItem]` + " defense buff"
     return defenseItems[chestItem]
+
+
+def checkWornDefenseItems(chestItem):
+    return defenseItems[chestItem]
+
 
 def equipThings():
     global chestItem
     #loops through inv,
     for i in inv:
-        if classify[inv[i]]=="armour":
+        if classify[inv[i]] == "armour":
             print `i` + " : " + `inv[i]`
         else:
             pass
@@ -82,6 +97,29 @@ def selectItem():
 def getItem():
     firstNum = randint(1, 5)
     secondNum = randint(1, 2)
+    if firstNum == 1 or 2:
+        if secondNum == 1:
+            print "You got a leather plate. Do you want to keep it? Y or N"
+            keep = raw_input("")
+            keep = keep.lower()
+            if keep == "y":
+                print "What number inventory slot do you want to store the armour in?"
+                for i in inv:
+                    print `i` + " : " + `inv[i]`
+                invSlot = int(raw_input(""))
+                inv[invSlot] = "leather plate"
+
+        if secondNum == 2:
+            print "You got a metal plate. Do you want to keep it? Y or N"
+            keep = raw_input("")
+            keep = keep.lower()
+            if keep == "y":
+                print "What number inventory slot do you want to store the armour in?"
+                for i in inv:
+                    print `i` + " : " + `inv[i]`
+                invSlot = int(raw_input(""))
+                inv[invSlot] = "metal plate"
+
     if firstNum == 3:
         if secondNum == 1:
             print "You got a potion"
@@ -237,9 +275,10 @@ defense = 1
 #add more
 
 #inventory
-inv = {1: "mutton", 2: "potion", 3: "metal plate", 4: "Nothing", 5: "Nothing", 6: "Nothing", 7: "Nothing", 8: "Nothing",
+inv = {1: "mutton", 2: "potion", 3: "sword", 4: "Nothing", 5: "Nothing", 6: "Nothing", 7: "Nothing", 8: "Nothing",
        9: "Nothing", 10: "Nothing"}
-classify = {"mutton": "food", "potion": "food", "metal plate": "armour", "Nothing":"Nothing"}
+classify = {"mutton": "food", "potion": "food", "metal plate": "armour", "leather plate": "armour", "Nothing": "Nothing"
+            ,"sword": "weapon"}
 defenseItems = {"Nothing": 0, "leather plate": 3, "metal plate": 5}
 invDesc = {"mutton": "a meat that heals 100 health", "potion": "a weak health potion that heals 150 health"}
 invFunc = {'mutton': 100, 'potion': 150}
@@ -336,18 +375,22 @@ while 1 == 1:
             while pHealth > 0 and oppHealth > 0:
                 print "the opponent has " + `oppHealth` + " health"
                 print "Do you want to " + heldmoves[0] + " , " + heldmoves[1] + " , " + heldmoves[2] + " , " + \
-                      heldmoves[3] + "?"
+                      heldmoves[3] + " or use a [w]eapon?"
                 moveOption = raw_input("")
                 moveOption = moveOption.lower()
                 if checkMoves(moveOption) == True:
                     damage = moveDamage(moveOption)
                     oppHealth = oppHealth - damage
+
+                elif moveOption == "w":
+                    print "weapons are cool"
+
                 else:
                     print "That isn't a move"
 
                 usedMove = moveUsed(currentArea)
                 print opponent + " used " + usedMove
-                pHealth -= (oppDamage2[usedMove]) - defense
+                pHealth -= (oppDamage2[usedMove]) - (defense + checkWornDefenseItems(chestItem))
                 print "You have " + `pHealth` + " health left"
 
             if pHealth <= 0:
@@ -392,7 +435,7 @@ while 1 == 1:
 
                 usedMove = moveUsed(currentArea)
                 print opponent + " used " + usedMove
-                pHealth -= oppDamage3[usedMove]
+                pHealth -= oppDamage3[usedMove] - (defense + checkWornDefenseItems(chestItem))
                 print "You have " + `pHealth` + " health left"
 
             if pHealth <= 0:
@@ -419,7 +462,7 @@ while 1 == 1:
         #This was inventory stuff
     elif whatToDo == "equip":
         print "you are currently wearing a " + chestItem + " on your body"
-        checkWornDefenseItems(chestItem)
+        checkWornDefenseItemsVerbose(chestItem)
         print "Do you want to equip new armour? Y or N"
         equip = raw_input("")
         equip = equip.lower()
