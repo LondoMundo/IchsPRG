@@ -1,22 +1,28 @@
 """
-TODO: add the ability to dodge moves, based on a skill that the player has. It is dependent on level, but at a certain
-point, it has to cap, so you don't dodge every move.
+TODO:
+    NOW:
+        add the ability to dodge moves, based on a skill that the player has. It is dependent on level, but at a certain
+        point, it has to cap, so you don't dodge every move.
+
+        Add weapons into the game. Wepons reuqire a system where the player is wearing things.
+
+        London Reed, Coral, and Plain Bagel Easter Eggs
+
+        do nothing crashes the program
+
+        saying "no" to a move still acts as if you said yes
+
+        Vegetarian option. lol
+    ALWAYS:
+        implement all of the things added in "Area 2" Into area 3.
+
+
+
+
+DONE:
 
 Integrate inventory option into the game. Its all set up, it just needs to be added as a prompt
 
-Add weapons into the game. Wepons reuqire a system where the player is wearing things.
-
-London Reed, Coral, and Plain Bagel Easter Eggs
-
-do nothing crashes the program
-
-saying "no" to a move still acts as if you said yes
-
-Vegetarian option. lol
-
-implement all of the things added in "Area 2" Into area 3.
-
-implement the hidden functions into user accessable choices
 
 """
 
@@ -358,7 +364,7 @@ currentArea = 2
 while 1 == 1:
 
     print "You are in area " + `currentArea`
-    print "What do you want to do? [F]ight, [C]hange area?"
+    print "What do you want to do? [F]ight, [C]hange area, look at your [inv], [e]quip things?"
     whatToDo = raw_input("")
     whatToDo = whatToDo.lower()
 
@@ -414,6 +420,7 @@ while 1 == 1:
                 print "You have " + `exp` + " exp"
                 getItem()
 
+
         elif currentArea == 3:
 
             opponent = v3Teach[randint(0, 5)]
@@ -460,11 +467,13 @@ while 1 == 1:
     elif whatToDo == "inv":
         selectItem()
         #This was inventory stuff
-    elif whatToDo == "equip":
+    elif whatToDo == "e":
         print "you are currently wearing a " + chestItem + " on your body"
-        checkWornDefenseItemsVerbose(chestItem)
+        checkWornDefenseItemsVerbose(chestItem) #gives the buff of the worn armour
         print "Do you want to equip new armour? Y or N"
         equip = raw_input("")
         equip = equip.lower()
         if equip == "y":
             equipThings()
+        else:
+            pass
