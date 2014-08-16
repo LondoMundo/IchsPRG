@@ -4,7 +4,6 @@ TODO:
         add the ability to dodge moves, based on a skill that the player has. It is dependent on level, but at a certain
         point, it has to cap, so you don't dodge every move.
 
-        Add weapons into the game. Wepons reuqire a system where the player is wearing things.
 
         London Reed, Coral, and Plain Bagel Easter Eggs
 
@@ -21,8 +20,13 @@ TODO:
 
 DONE:
 
+
+
+
+
 Integrate inventory option into the game. Its all set up, it just needs to be added as a prompt
 
+Add weapons into the game. Wepons reuqire a system where the player is wearing things.
 
 """
 
@@ -36,11 +40,12 @@ except:
 # used to randomize moves that are used
 from random import randint
 
+
 #global strength  implement this as a modifyer to the damage the player deals
 global pHealth
 pHealth = 3000
 chestItem = "Nothing"
-
+rightHand = "Nothing"
 
 def checkWornDefenseItemsVerbose(chestItem):
     """This function checks how much defense buff the player gains from chest armour"""
@@ -51,8 +56,10 @@ def checkWornDefenseItemsVerbose(chestItem):
 def checkWornDefenseItems(chestItem):
     return defenseItems[chestItem]
 
+def checkRightHandItem(rightHand):
+    return offenseItems[rightHand]
 
-def equipThings():
+def equipArmour():
     global chestItem
     #loops through inv,
     for i in inv:
@@ -63,7 +70,20 @@ def equipThings():
     print "What number do you want to equip?"
     choice = int(raw_input(""))
     chestItem = inv[choice]
+    print "The new armour gives you a buff of +" + `defenseItems[chestItem]`
 
+def equipWeapon():
+    global rightHand
+    #loop through your inv looking for weapons
+    for i in inv:
+        if classify[inv[i]] == "weapon":
+            print `i` + " : " + `inv[i]`
+        else:
+            pass
+    print "What number would you like to equip?"
+    choice = int(raw_input(""))
+    rightHand = inv[choice]
+    print "Your weapon does " + `offenseItems[rightHand]` + " damage"
 
 def useItem(itemToUse, itemNum):
     #pHealth is the players health
@@ -281,11 +301,12 @@ defense = 1
 #add more
 
 #inventory
+
 inv = {1: "mutton", 2: "potion", 3: "sword", 4: "Nothing", 5: "Nothing", 6: "Nothing", 7: "Nothing", 8: "Nothing",
        9: "Nothing", 10: "Nothing"}
-classify = {"mutton": "food", "potion": "food", "metal plate": "armour", "leather plate": "armour", "Nothing": "Nothing"
-            ,"sword": "weapon"}
+classify = {"mutton": "food", "potion": "food", "metal plate": "armour", "leather plate": "armour", "Nothing": "Nothing","sword": "weapon", "spear": "weapon"}
 defenseItems = {"Nothing": 0, "leather plate": 3, "metal plate": 5}
+offenseItems = {"sword": 60, "spear": 75}
 invDesc = {"mutton": "a meat that heals 100 health", "potion": "a weak health potion that heals 150 health"}
 invFunc = {'mutton': 100, 'potion': 150}
 #list the starting health of opponents
@@ -301,6 +322,7 @@ heldmoves = ["punch", 'do nothing', "do nothing", "do nothing"]
 wades = ['Alex', "Nathan"]
 v2Teach = ["Demas", "Pries", "Bosma", "Laurie", "Jacobsen", "Dipzinski"]
 v3Teach = ["Bebee", "Gymory", "Lestage", "Koss", "Gartrell", "Halstead"]
+
 exp = 0
 
 print "You arrive at ICHS, a mystical land filled with mosterous Wades, and"
@@ -386,10 +408,12 @@ while 1 == 1:
                 moveOption = moveOption.lower()
                 if checkMoves(moveOption) == True:
                     damage = moveDamage(moveOption)
+                    #change all instances of " a = a - b" to "a-=b"
                     oppHealth = oppHealth - damage
 
                 elif moveOption == "w":
-                    print "weapons are cool"
+                    damage = int(offenseItems[rightHand]) + strength
+                    oppHealth = oppHealth - damage
 
                 else:
                     print "That isn't a move"
@@ -434,7 +458,7 @@ while 1 == 1:
                 moveOption = raw_input("")
                 moveOption = moveOption.lower()
                 if checkMoves(moveOption) == True:
-                    damage = moveDamage(moveOption)
+                    damage = checkRightHandItem(rightHand) + strength
                     oppHealth = oppHealth - damage
 
                 else:
@@ -470,10 +494,12 @@ while 1 == 1:
     elif whatToDo == "e":
         print "you are currently wearing a " + chestItem + " on your body"
         checkWornDefenseItemsVerbose(chestItem) #gives the buff of the worn armour
-        print "Do you want to equip new armour? Y or N"
+        print "Do you want to equip new [A]rmour, [W]eapons, or [N]either?"
         equip = raw_input("")
         equip = equip.lower()
-        if equip == "y":
-            equipThings()
+        if equip == "a":
+            equipArmour()
+        elif equip == "w":
+            equipWeapon()
         else:
             pass
