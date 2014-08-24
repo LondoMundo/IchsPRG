@@ -17,7 +17,6 @@ TODO:
 
 
 
-
 DONE:
 
 Integrate inventory option into the game. Its all set up, it just needs to be added as a prompt
@@ -104,23 +103,19 @@ def equipArmour(number):
             print `i` + " : " + `inv[i]`
         else:
             pass
+    chestItemHolder = chestItem
     chestItem = inv[number]
+    inv[number] = chestItemHolder
     print "The new armour gives you a defense buff of +" + `defenseItems[chestItem]`
 
 
 def equipWeapon(number):
     global rightHand
     #loop through your inv looking for weapons
-    """
-    for i in inv:
-        if classify[inv[i]] == "weapon":
-            print `i` + " : " + `inv[i]`
-        else:
-            pass
-    print "What number would you like to equip?"
-    choice = int(raw_input(""))
-    """
+    weaponHolder = rightHand
     rightHand = inv[number]
+    inv[number] = weaponHolder
+
     print "Your weapon does " + `offenseItems[rightHand]` + " damage"
 
 
@@ -485,7 +480,6 @@ class Main(wx.Frame):
         if equipBox.ShowModal() == wx.ID_OK:
             itemToEquip = equipBox.GetValue()
             equipWeapon(int(itemToEquip))
-
 
 
     def startFight(self, event):
