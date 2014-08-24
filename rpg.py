@@ -29,6 +29,7 @@ do nothing crashes the program
 NOTES:
     Last night, we implemented the GUI for equipping armour. The GUI for equiping weapons should be pretty similar,
     but it needs error handling
+    Comment
 
 """
 
